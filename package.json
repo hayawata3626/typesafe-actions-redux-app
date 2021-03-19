@@ -21,7 +21,7 @@
     "@types/storybook__react": "4.0.2",
     "axios": "0.21.1",
     "babel-loader": "8.1.0",
-    "immer": "8.0.1",
+    "immer": "8.0.4",
     "json-server": "0.16.2",
     "lodash": "4.17.20",
     "react": "17.0.1",
