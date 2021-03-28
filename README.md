@@ -5,6 +5,8 @@ It is made for trying typesafe-actions and unit test using jest.
 
 ## Run mock server
 
+you need to run the mock server before **run application**
+
 ```
 yarn start:server
 ```
