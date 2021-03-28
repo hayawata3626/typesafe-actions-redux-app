@@ -2,7 +2,7 @@ import {
   BulkEditModal,
   Todo,
   TodoAppState,
-  TodoById
+  TodoById,
 } from "../state/todoAppState"
 import _ from "lodash"
 import { fromArrayToObject } from "../util/fromArrayToObject"
@@ -10,9 +10,7 @@ import produce, { Draft } from "immer"
 import { deprecated } from "typesafe-actions"
 const { createStandardAction } = deprecated
 
-export const decideBulkModal = createStandardAction("decideBulkModal")<
-  undefined
->()
+export const decideBulkModal = createStandardAction("decideBulkModal")()
 
 export const decideBulkModalReducer = (state: TodoAppState): TodoAppState =>
   produce(state, (draftState: Draft<TodoAppState>) => {
@@ -26,7 +24,7 @@ export const decideBulkModalReducer = (state: TodoAppState): TodoAppState =>
       ...draftState.bulkEditModal,
       open: false,
       title: "",
-      done: false
+      done: false,
     }
   })
 
@@ -42,7 +40,7 @@ const changeSelectedTodo = (
             ...todo,
             title: bulkEditModal.title,
             selected: false,
-            done: bulkEditModal.done
+            done: bulkEditModal.done ? true : todo.done,
           }
         : todo
     )

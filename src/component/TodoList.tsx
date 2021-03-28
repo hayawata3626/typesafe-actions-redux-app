@@ -16,9 +16,9 @@ export const TodoList: React.FC<Props> = React.memo(
         todoList.map((todo, index) => (
           <TodoItemContainer todo={todo} key={index} />
         ))}
-      {filterType === FilterType.Active &&
+      {filterType === FilterType.Doing &&
         todoList
-          .filter(todo => !todo.done)
+          .filter((todo) => !todo.done)
           .map((todo, index) => <TodoItemContainer todo={todo} key={index} />)}
       {filterType === FilterType.Complete &&
         todoList

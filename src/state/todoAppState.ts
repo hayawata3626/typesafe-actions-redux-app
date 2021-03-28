@@ -1,7 +1,7 @@
 export enum FilterType {
-  All = "全て",
-  Active = "着手",
-  Complete = "完了"
+  All = "All",
+  Doing = "Doing",
+  Complete = "Complete",
 }
 
 export type Todo = Readonly<{
@@ -47,22 +47,22 @@ export type TodoAppState = Readonly<{
 export const initialState: TodoAppState = {
   todoList: {
     byId: {},
-    allIds: []
+    allIds: [],
   },
   selectedTodoIds: [],
   filterType: FilterType.All,
   bulkEditModal: {
     open: false,
     title: "",
-    done: false
+    done: false,
   },
   addTodoModal: {
     open: false,
-    title: ""
+    title: "",
   },
   errorSnackBar: {
     open: false,
-    message: ""
+    message: "",
   },
-  loading: false
+  loading: false,
 }

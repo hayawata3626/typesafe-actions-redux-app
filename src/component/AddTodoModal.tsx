@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Button, Dialog, DialogContent, TextField } from "@material-ui/core"
 import { useCallback } from "react"
+import styled from "@emotion/styled"
 
 type Props = {
   open: boolean
@@ -10,13 +11,27 @@ type Props = {
   onClickDecideButton: () => void
   onRequestClose: () => void
 }
+
+const DialogContentWrapper = styled(DialogContent)`
+  width: 400px;
+  padding: 30px;
+`
+
+const ButtonActions = styled("div")`
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-column-gap: 30px;
+  justify-content: center;
+  margin-top: 20px;
+`
+
 export const AddTodoModal: React.FC<Props> = React.memo(
   ({
     open,
     title,
     onTitleChange,
     onClickDecideButton,
-    onRequestClose
+    onRequestClose,
   }: Props) => {
     const handleDecideButtonClick = useCallback(() => {
       onClickDecideButton()
@@ -26,12 +41,12 @@ export const AddTodoModal: React.FC<Props> = React.memo(
       onRequestClose()
     }, [onRequestClose])
 
-    const handleDialogContentClick = useCallback(e => {
+    const handleDialogContentClick = useCallback((e) => {
       e.stopPropagation()
     }, [])
 
     const handleTextChange = useCallback(
-      e => {
+      (e) => {
         onTitleChange(e.target.value)
       },
       [onTitleChange]
@@ -43,19 +58,32 @@ export const AddTodoModal: React.FC<Props> = React.memo(
 
     return (
       <Dialog open={open} onClick={handleBackGroundClick}>
-        <DialogContent onClick={handleDialogContentClick}>
+        <DialogContentWrapper onClick={handleDialogContentClick}>
           <TextField
-            placeholder={"タイトルをクリック"}
+            placeholder={"タイトルを入力"}
             value={title}
             onChange={handleTextChange}
+            variant={"outlined"}
+            fullWidth={true}
           />
-          <Button color={"primary"} onClick={handleDecideButtonClick}>
-            決定
-          </Button>
-          <Button color={"secondary"} onClick={handleCancelButtonClick}>
-            キャンセル
-          </Button>
-        </DialogContent>
+          <ButtonActions>
+            <Button
+              color={"secondary"}
+              onClick={handleCancelButtonClick}
+              variant={"contained"}
+            >
+              キャンセル
+            </Button>
+            <Button
+              color={"primary"}
+              onClick={handleDecideButtonClick}
+              variant={"contained"}
+              disabled={title.length <= 0}
+            >
+              決定
+            </Button>
+          </ButtonActions>
+        </DialogContentWrapper>
       </Dialog>
     )
   }

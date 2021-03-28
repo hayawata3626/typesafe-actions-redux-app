@@ -1,8 +1,9 @@
 import * as React from "react"
 import { Todo } from "../state/todoAppState"
-import { TextField, Card, Checkbox } from "@material-ui/core"
+import { TextField, Checkbox, Box } from "@material-ui/core"
 import { useCallback } from "react"
 import HighlightOffIcon from "@material-ui/icons/HighlightOff"
+import styled from "@emotion/styled"
 
 type Props = {
   todo: Todo
@@ -12,13 +13,27 @@ type Props = {
   onDeleteIconClick: (id: number) => void
 }
 
+const ItemWrapper = styled(Box)<{ selected: boolean }>`
+  margin: 0 auto 20px auto;
+  width: 600px;
+  padding: 10px;
+  border: ${(props) => (props.selected ? "2px solid blue" : "none")};
+  display: flex;
+  align-items: center;
+`
+
+const RemoveButton = styled(HighlightOffIcon)`
+  margin-left: 10px;
+  cursor: pointer;
+`
+
 export const TodoItem: React.FC<Props> = React.memo(
   ({
     todo,
     onChangeTitle,
     onCheckedChange,
+    onDeleteIconClick,
     onItemSelect,
-    onDeleteIconClick
   }: Props) => {
     const handleTitleChange = useCallback(
       (e: any) => {
@@ -47,25 +62,22 @@ export const TodoItem: React.FC<Props> = React.memo(
     )
 
     return (
-      <Card
-        style={{
-          margin: "0 auto 20px auto",
-          width: "600px",
-          border: todo.selected ? "2px solid blue" : "none",
-          display: "flex",
-          alignItems: "center"
-        }}
+      <ItemWrapper
         data-testid="todo"
+        selected={todo.selected}
+        boxShadow={3}
         onClick={handleItemSelect}
       >
         <Checkbox checked={todo.done} onChange={handleCheckedChange} />
         <TextField
           type={"text"}
           value={todo.title}
+          variant={"outlined"}
+          fullWidth={true}
           onChange={handleTitleChange}
         />
-        <HighlightOffIcon color={"primary"} onClick={handleDeleteIconClick} />
-      </Card>
+        <RemoveButton color={"primary"} onClick={handleDeleteIconClick} />
+      </ItemWrapper>
     )
   }
 )

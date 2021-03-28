@@ -6,28 +6,38 @@ import {
   Dialog,
   DialogContent,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core"
 import { useCallback } from "react"
-import _ from "lodash"
+import styled from "@emotion/styled"
 
 type Props = {
   bulkEditModal: BulkEditModalType
-  selectedTodoIds: ReadonlyArray<number>
   onChangeTitle: (text: string) => void
   onChecked: (checked: boolean) => void
   onRequestClose: () => void
   onClickDecideButton: () => void
 }
 
+const DialogContentWrapper = styled(DialogContent)`
+  width: 400px;
+`
+
+const ButtonActions = styled("div")`
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-column-gap: 30px;
+  justify-content: center;
+  margin-top: 20px;
+`
+
 export const BulkEditModal: React.FC<Props> = React.memo(
   ({
     bulkEditModal,
-    selectedTodoIds,
     onChangeTitle,
     onChecked,
     onRequestClose,
-    onClickDecideButton
+    onClickDecideButton,
   }: Props) => {
     const handleBackGroundClick = useCallback(() => {
       onRequestClose()
@@ -51,34 +61,50 @@ export const BulkEditModal: React.FC<Props> = React.memo(
       [onChecked]
     )
 
+    const handleCancelButtonClick = useCallback(() => {
+      onRequestClose()
+    }, [onRequestClose])
+
     const handleDecideButtonClick = useCallback(() => {
       onClickDecideButton()
     }, [onClickDecideButton])
 
     return (
       <Dialog open={bulkEditModal.open} onClick={handleBackGroundClick}>
-        <DialogContent onClick={handleDialogContentClick}>
-          {selectedTodoIds.map(id => (
-            <Typography key={id}>{id}が選択されています</Typography>
-          ))}
-          {_.isEmpty(selectedTodoIds) && (
-            <Typography>選択されているidはありません</Typography>
-          )}
+        <DialogContentWrapper onClick={handleDialogContentClick}>
+          <Typography>選択した項目を一括編集します</Typography>
           <TextField
-            placeholder={"タイトルをクリック"}
+            placeholder={"タイトルを入力"}
+            variant={"outlined"}
+            fullWidth={true}
             onChange={handleTextChange}
           />
           <div>
-            完了
+            ステータスを完了状態にする
             <Checkbox
               checked={bulkEditModal.done}
               onChange={handleCheckBoxChecked}
             />
           </div>
-          <Button color={"secondary"} onClick={handleDecideButtonClick}>
-            決定
-          </Button>
-        </DialogContent>
+          <ButtonActions>
+            <Button
+              color={"secondary"}
+              onClick={handleCancelButtonClick}
+              variant={"contained"}
+            >
+              キャンセル
+            </Button>
+            <Button
+              color={"primary"}
+              variant={"contained"}
+              fullWidth={true}
+              onClick={handleDecideButtonClick}
+              disabled={bulkEditModal.title.length <= 0}
+            >
+              決定
+            </Button>
+          </ButtonActions>
+        </DialogContentWrapper>
       </Dialog>
     )
   }

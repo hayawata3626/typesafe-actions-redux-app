@@ -12,7 +12,7 @@ import {
 } from "../selector"
 import _ from "lodash"
 import AppBar from "@material-ui/core/AppBar"
-import { Button, CircularProgress, Fab, Toolbar } from "@material-ui/core"
+import { Button, Fab, Toolbar } from "@material-ui/core"
 import { BulkEditModal } from "../component/BulkEditModal"
 import {
   changeTaskFilter,
@@ -32,6 +32,7 @@ import { AddTodoModal } from "../component/AddTodoModal"
 import { changeTitleOfAddTodoModal } from "../reducer/changeTitleOfAddTodoModal"
 import { decideAddTodo } from "../reducer/decideAddTodo"
 import { FilterType } from "../state/todoAppState"
+import { Loading } from "../component/Loading"
 
 export const App: React.FC = React.memo(() => {
   const dispatch = useDispatch()
@@ -96,7 +97,6 @@ export const App: React.FC = React.memo(() => {
 
   const handleChangeTaskFilter = useCallback(
     (e) => {
-      console.log(e.target.textContent)
       dispatch(changeTaskFilter({ filterType: e.target.textContent }))
     },
     [dispatch]
@@ -125,17 +125,7 @@ export const App: React.FC = React.memo(() => {
         </EditIcon>
       </Fab>
       {loading ? (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress />
-        </div>
+        <Loading />
       ) : (
         <>
           <AppBar position="sticky">
@@ -150,10 +140,10 @@ export const App: React.FC = React.memo(() => {
                 </Button>
                 <Button
                   onClick={handleChangeTaskFilter}
-                  value={FilterType.Active}
-                  style={{ color: getColor(filterType, FilterType.Active) }}
+                  value={FilterType.Doing}
+                  style={{ color: getColor(filterType, FilterType.Doing) }}
                 >
-                  {FilterType.Active}
+                  {FilterType.Doing}
                 </Button>
                 <Button
                   onClick={handleChangeTaskFilter}
@@ -170,7 +160,6 @@ export const App: React.FC = React.memo(() => {
             todoList={_.toArray(todoList.byId)}
           />
           <BulkEditModal
-            selectedTodoIds={selectedTodoIds}
             bulkEditModal={bulkEditModal}
             onChangeTitle={handleTitleChange}
             onChecked={handleCheckedChange}
