@@ -69,7 +69,7 @@
     "@types/lodash": "4.14.168",
     "@types/react-redux": "7.1.9",
     "@types/rosie": "0.0.38",
-    "husky": "5.2.0",
+    "husky": "6.0.0",
     "jest-emotion": "11.0.0",
     "prettier": "2.1.2"
   },
