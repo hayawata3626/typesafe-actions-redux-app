@@ -3021,10 +3021,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/rosie@0.0.38":
-  version "0.0.38"
-  resolved "https://registry.yarnpkg.com/@types/rosie/-/rosie-0.0.38.tgz#bead6124c3ea11ee2b2e1b23b18a2688c289c028"
-  integrity sha512-9g0bcHxRXr5PkuS+hjdRX7wl7edV9M+eX9zAypcVGn69FUckVayEK4yMysKpwtY/CxKgvbx/XKIvCTau7anf9w==
+"@types/rosie@0.0.40":
+  version "0.0.40"
+  resolved "https://registry.yarnpkg.com/@types/rosie/-/rosie-0.0.40.tgz#3fe51a3ac08d2f1a335999e74ee7b8743610ab11"
+  integrity sha512-Snog8oO88AXDhFG1BHPkKSg2urcGhyA+/fqQUuc4Abejt+HHrc2VszujyJGVBlN6DD8Gnp3PV5rogs3uYt/ZOA==
 
 "@types/scheduler@*":
   version "0.16.1"
