@@ -71,7 +71,7 @@
     "@types/rosie": "0.0.38",
     "husky": "5.2.0",
     "jest-emotion": "11.0.0",
-    "prettier": "2.1.2"
+    "prettier": "2.8.8"
   },
   "prettier": {
     "semi": false
